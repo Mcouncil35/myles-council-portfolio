@@ -76,21 +76,6 @@ const AIChatbot = () => {
   const getResponse = (question) => {
     const q = question.toLowerCase();
 
-    // Check for link navigation requests first
-    const linkCheck = checkForLinkRequest(question);
-    if (linkCheck.shouldOpen) {
-      openLink(linkCheck.link);
-
-      const responses = {
-        'GitHub': "Opening Myles's GitHub profile now! You'll find all his code repositories and projects there. Happy exploring!",
-        'LinkedIn': "Taking you to Myles's LinkedIn profile! Feel free to connect with him there - he loves networking!",
-        'Projects': "Opening the Murr Cross-Reference Explorer project! Check out the code and see what Myles has built.",
-        'Email': "Opening your email client to contact Myles! Don't be shy - he'd love to hear from you!"
-      };
-
-      return responses[linkCheck.name] || `Opening ${linkCheck.name} for you!`;
-    }
-
     // Skills related
     if (q.includes('skill') || q.includes('know') || q.includes('technology') || q.includes('tech stack')) {
       return "Myles has got some serious tech chops! Here's the rundown:\n\n🐍 Python (90%) - His go-to for automation & ML\n🗄️ SQL (95%) - Database wizard status\n📊 R (85%) - Statistical analysis pro\n☁️ Cloud Analytics & ETL pipelines\n📈 Tableau & Power BI for stunning visualizations\n\nBasically, if it involves data, he's on it!";
@@ -185,9 +170,31 @@ const AIChatbot = () => {
     const userMessage = { type: 'user', text };
     setMessages(prev => [...prev, userMessage]);
     setInput('');
+
+    // Check for link request BEFORE the delay to avoid popup blockers
+    const linkCheck = checkForLinkRequest(text);
+    if (linkCheck.shouldOpen) {
+      // Open link immediately (user-initiated action)
+      openLink(linkCheck.link);
+
+      const responses = {
+        'GitHub': "Opening Myles's GitHub profile now! You'll find all his code repositories and projects there. Happy exploring!",
+        'LinkedIn': "Taking you to Myles's LinkedIn profile! Feel free to connect with him there - he loves networking!",
+        'Projects': "Opening the Murr Cross-Reference Explorer project! Check out the code and see what Myles has built.",
+        'Email': "Opening your email client to contact Myles! Don't be shy - he'd love to hear from you!"
+      };
+
+      setIsTyping(true);
+      setTimeout(() => {
+        setMessages(prev => [...prev, { type: 'bot', text: responses[linkCheck.name] || `Opening ${linkCheck.name} for you!` }]);
+        setIsTyping(false);
+      }, 400);
+      return;
+    }
+
     setIsTyping(true);
 
-    // Simulate AI thinking delay
+    // Simulate AI thinking delay for non-link responses
     setTimeout(() => {
       const response = getResponse(text);
       setMessages(prev => [...prev, { type: 'bot', text: response }]);
