@@ -3010,10 +3010,26 @@ main {
    CONTACT SECTION - AI CREATIVE
 ================================ */
 .contact-section-new {
-  background: var(--gradient-dark);
+  background: transparent;
   position: relative;
   overflow: hidden;
   z-index: 2;
+}
+
+.contact-section-new::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(248, 250, 252, 0.92) 0%,
+    rgba(255, 255, 255, 0.95) 100%
+  );
+  pointer-events: none;
+  z-index: 0;
 }
 
 .contact-bg {
@@ -3023,6 +3039,7 @@ main {
   right: 0;
   bottom: 0;
   pointer-events: none;
+  z-index: 1;
 }
 
 .contact-orb {
@@ -3035,7 +3052,7 @@ main {
 .orb-1 {
   width: 400px;
   height: 400px;
-  background: rgba(99, 102, 241, 0.3);
+  background: rgba(99, 102, 241, 0.15);
   top: -100px;
   right: -100px;
 }
@@ -3043,7 +3060,7 @@ main {
 .orb-2 {
   width: 300px;
   height: 300px;
-  background: rgba(6, 182, 212, 0.25);
+  background: rgba(6, 182, 212, 0.12);
   bottom: -50px;
   left: -50px;
   animation-delay: -4s;
@@ -3051,21 +3068,21 @@ main {
 
 .contact-section-new .container {
   position: relative;
-  z-index: 1;
+  z-index: 2;
 }
 
 .contact-section-new .section-label {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.2);
-  color: var(--accent);
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+  border-color: rgba(99, 102, 241, 0.2);
+  color: var(--primary);
 }
 
 .contact-section-new .section-title {
-  color: #fff;
+  color: var(--text-primary);
 }
 
 .contact-section-new .section-subtitle {
-  color: rgba(255, 255, 255, 0.7);
+  color: var(--text-secondary);
 }
 
 .contact-grid-new {
@@ -3088,18 +3105,18 @@ main {
   align-items: center;
   gap: 1rem;
   padding: 1.25rem 1.5rem;
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--bg-white);
+  border: 1px solid var(--border-color);
   border-radius: 16px;
   text-decoration: none;
   transition: all 0.3s ease;
+  box-shadow: var(--shadow-md);
 }
 
 .contact-card-new:hover {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.2);
-  transform: translateX(8px);
+  border-color: rgba(99, 102, 241, 0.3);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
 }
 
 .contact-card-icon {
@@ -3122,7 +3139,7 @@ main {
 
 .contact-card-label {
   font-size: 0.75rem;
-  color: rgba(255, 255, 255, 0.5);
+  color: var(--text-light);
   text-transform: uppercase;
   letter-spacing: 0.1em;
   font-weight: 600;
@@ -3130,7 +3147,7 @@ main {
 
 .contact-card-value {
   font-size: 1rem;
-  color: #fff;
+  color: var(--text-primary);
   font-weight: 600;
 }
 
@@ -3142,9 +3159,9 @@ main {
   align-items: center;
   text-align: center;
   padding: 2rem;
-  background: rgba(255, 255, 255, 0.03);
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.05) 0%, rgba(139, 92, 246, 0.05) 100%);
   border-radius: 24px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(99, 102, 241, 0.1);
 }
 
 .social-cta {
@@ -3161,13 +3178,13 @@ main {
 .social-cta h3 {
   font-size: 1.25rem;
   font-weight: 700;
-  color: #fff;
+  color: var(--text-primary);
   margin: 0 0 0.5rem 0;
 }
 
 .social-cta p {
   font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.6);
+  color: var(--text-secondary);
   margin: 0;
 }
 
