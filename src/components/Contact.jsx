@@ -91,10 +91,6 @@ const Contact = () => {
               </a>
             </div>
 
-            <div className="ai-fun-fact">
-              <span className="fun-fact-emoji">🤖</span>
-              <p>This portfolio was built with AI-powered tools!</p>
-            </div>
           </div>
         </div>
       </div>
